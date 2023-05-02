@@ -1,0 +1,24 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+h1 {
+    font-size: 4rem;
+    margin: 0 0 2 0 ;
+    font-weight: 900;
+    color: black;
+    text-align: center;
+}
+p {
+    color: black;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.contenido {
+    width: 60rem;
+    text-align: center;
+    margin: 0 auto;
+    text-align: left;
+}
