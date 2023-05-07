@@ -1,7 +1,4 @@
-// Actividad del Taller de Programación Imperativa 7.1.1
-// Nombre ficticio
-
-// Todos los datos del estudiante
+// DATOS
 // Datos del estudiante
 const estudiante = {
     nombre: 'Pepe',
@@ -25,31 +22,10 @@ const promedioIngles = numRandom();
 // Lecciones de Competencias transversales
 const lecciones = boolRandom();
 
-// Almacenamos datos del mismo tipo en arrays
-// Array con todos los puntajes
-const puntajes = [
-    fundProgramacion,
-    progImperativa,
-    pOO,
-    promedioIngles
-]
+// Auxiliar
+const porcentaje = Math.trunc(fundProgramacion/3 + progImperativa/5 + pOO/2);
 
-// Array con los bools
-const bools = [
-    eviFundProgramacion,
-    eviProgImperativa,
-    eviPOO,
-    lecciones
-]
-
-// Objeto con todos los datos del estudiante
-const resumen = {
-    estudiante,
-    puntajes,
-    bools
-}
-
-// Zona de funciones
+// FUNCIONES
 // Devulve un numero random entre 0 y 100
 function numRandom() {
     return Math.trunc(Math.random()*100);
@@ -61,14 +37,14 @@ function boolRandom() {
 }
 
 // Entrego las 3 evidencias
-function evidencias(completo) {
-    return completo[0] && completo[1] && completo[2];
+function evidencias() {
+    return eviFundProgramacion && eviProgImperativa && eviPOO;
 }
 
 // Evalua Competencias transversales
-function completoCT(completo) {
+function completoCT() {
     let resultado = '';
-    if(completo) {
+    if(lecciones) {
         resultado = '100 puntos - Aprobado';
     } else {
         resultado = 'Faltan lecciones';
@@ -77,14 +53,13 @@ function completoCT(completo) {
 }
 
 // Evalua Tecnica
-function completoTecnico(completo) {
+function completoTecnico() {
     let resultado = '';
-    let porcentaje = Math.trunc(completo.puntajes[0]/3 + completo.puntajes[1]/5 + completo.puntajes[2]/2);
-    if(porcentaje >= 60 && evidencias(completo.bools)) {
+    if(porcentaje >= 60 && evidencias()) {
         resultado = 'Aprobado';
     } else if(porcentaje >= 60) {
         resultado = 'Faltan evidencias';
-    } else if(evidencias(completo.bools)) {
+    } else if(evidencias()) {
         resultado = 'Tienes menos de 60 puntos'
     } else {
         resultado = 'Tienes menos de 60 puntos y faltan evidencias'
@@ -93,21 +68,21 @@ function completoTecnico(completo) {
 }
 
 // Evalua Ingles
-function ingles(completo) {
+function ingles() {
     let resultado = '';
-    if(completo >= 50) {
-        resultado = completo + ' puntos - Aprobado';
+    if(promedioIngles >= 50) {
+        resultado = promedioIngles + ' puntos - Aprobado';
     } else {
-        resultado = completo + ' puntos - Desaprobado';
+        resultado = promedioIngles + ' puntos - Desaprobado';
     }
     return resultado;
 }
 
 // Conclusion
-function final(completo) {
+function final() {
     let resultado = '';
-    let porcentaje = Math.trunc(completo.puntajes[0]/3 + completo.puntajes[1]/5 + completo.puntajes[2]/2);
-    if((completo.bools[3]) && porcentaje >= 60 && evidencias(completo.bools) && completo.puntajes[3] >= 50) {
+    porcentaje;
+    if((lecciones) && porcentaje >= 60 && evidencias() && promedioIngles >= 50) {
         resultado = 'Aprobado';
     } else {
         resultado = 'Desaprobado';
@@ -116,17 +91,17 @@ function final(completo) {
 }
 
 // Muestra en pantalla el estado del estudiante
-function detallesStatus(datos) {
+function detallesStatus() {
     const mensaje = document.querySelector('.contenido');
     const resultado = document.createElement('P');
     resultado.innerHTML = `
-        Estimado <span>${datos.estudiante.nombre} ${datos.estudiante.apellido}</span>, sus calificaciones son:<br><br>
-        <span>Competencias Transversales:</span> ${completoCT(datos.bools[3])}<br>
-        <span>Tecnico:</span> ${completoTecnico(datos)}<br>
-        <span>Ingles:</span> ${ingles(datos.puntajes[3])}<br><br>
-        <span>Conclusión:</span> ${final(datos)}
+        Estimado <span>${estudiante.nombre} ${estudiante.apellido}</span>, sus calificaciones son:<br><br>
+        <span>Competencias Transversales:</span> ${completoCT()}<br>
+        <span>Tecnico:</span> ${completoTecnico()}<br>
+        <span>Ingles:</span> ${ingles()}<br><br>
+        <span>Conclusión:</span> ${final()}
     `;
     mensaje.appendChild(resultado);
 }
 
-detallesStatus(resumen);
+detallesStatus();
